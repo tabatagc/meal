@@ -1,21 +1,25 @@
 {
   "name": "koa-starter",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev:build": "echo -n 'Transpiling changes...' && esbuild ./src --log-level=warning --bundle --platform=node --format=esm --outfile=dist/index.js && echo ✅",
+    "dev:build": "node esbuild.config.js",
     "dev:node": "node dist/index.js",
     "lint:types": "tsc --preserveWatchOutput",
     "dev": "nodemon",
-    "start": "npm run --silent dev"
+    "start": "npm run --silent dev",
+    "clean": "tsc --build --clean"
   },
   "dependencies": {
     "@koa/router": "^10.0.0",
     "koa": "^2.13.1",
+    "koa-bodyparser": "^4.4.1",
     "koa-logger": "^3.2.1",
     "koa-pino-logger": "^3.0.0"
   },
   "devDependencies": {
     "@types/koa__router": "^12.0.4",
+    "@types/koa-bodyparser": "^4.3.12",
     "@types/koa-logger": "^3.1.5",
     "@types/node": "^20.11.16",
     "esbuild": "^0.20.0",
@@ -25,10 +29,16 @@
   "nodemonConfig": {
     "exec": "npm run --silent dev:build && npm run --silent dev:node",
     "ext": "env,ts,js,json",
-    "ignore": ["dist/**/*", "src/**/*.test.ts"],
+    "ignore": [
+      "dist/**/*",
+      "src/**/*.test.ts"
+    ],
     "legacyWatch": true,
     "quiet": true,
     "signal": "SIGTERM",
-    "watch": [".env", "src"]
+    "watch": [
+      ".env",
+      "src"
+    ]
   }
 }

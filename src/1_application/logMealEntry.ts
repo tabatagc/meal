@@ -1,4 +1,4 @@
-import {
+import type {
   MealEntry,
   MealEntryRepository,
 } from '../2_domain/mealEntryRepository';
