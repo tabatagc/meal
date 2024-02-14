@@ -1,4 +1,3 @@
-<!-- /0_interfaces/view/meal-entry-form.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,12 +7,49 @@
 </head>
 <body>
     <h1>Add New Meal Entry</h1>
-    <form action="/meal-entries" method="post">
+    <form id="mealEntryForm" action="/meal-entries" method="post">
         <label for="description">Description:</label><br>
         <input type="text" id="description" name="description"><br>
+        <label for="userId">UserId:</label><br>
+        <input type="text" id="userId" name="userId"><br>        
         <label for="timestamp">Timestamp:</label><br>
         <input type="datetime-local" id="timestamp" name="timestamp"><br><br>
         <button type="submit">Submit</button>
     </form>
+
+    <script>
+      function handleSubmit(event) {
+        event.preventDefault();
+        const form = event.target;
+        const data = new FormData(form);
+        fetch(form.action, {
+          method: 'POST',
+          body: data
+        })
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(data => {
+              throw new Error(data.error);
+            });
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data.error) {
+            alert(data.error);
+          } else {
+            alert('Meal entry added successfully!');
+            form.reset();
+          }
+        })
+        .catch(error => {
+          alert('An error occurred: ' + error.message);
+        });
+      }
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('mealEntryForm').addEventListener('submit', handleSubmit);
+      });
+    </script>
 </body>
 </html>

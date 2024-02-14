@@ -10,11 +10,25 @@ export class InMemoryMealEntryRepository implements MealEntryRepository {
     return mealEntry;
   }
 
+  async getAllPublicMealEntries(): Promise<MealEntry[]> {
+    return [];
+  }
+
   async getAllMealEntries(): Promise<MealEntry[]> {
     return this.entries;
   }
 
-  async getAllPublicMealEntries(): Promise<MealEntry[]> {
-    return [];
+  async find(id: string): Promise<MealEntry | undefined> {
+    return this.entries.find(entry => entry.id === id);
+  }
+  
+  async update(id: string, mealEntryData: Partial<MealEntry>): Promise<MealEntry> {
+    const entryIndex = this.entries.findIndex(entry => entry.id === id);
+    if (entryIndex === -1) {
+      throw new Error('Meal entry not found');
+    }
+    const updatedEntry: MealEntry = { ...this.entries[entryIndex], ...mealEntryData };
+    this.entries[entryIndex] = updatedEntry;
+    return updatedEntry;
   }
 }

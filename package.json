@@ -8,8 +8,9 @@
     "dev:build": "node esbuild.config.mjs",
     "dev:node": "node dist/index.js",
     "lint:types": "tsc --preserveWatchOutput",
-    "dev": "nodemon",
-    "start": "npm run --silent dev",
+    "build": "babel src --out-dir dist --extensions \".js,.ts,.tsx\"",
+    "start": "npm run build && node dist/index.js",
+    "dev": "nodemon --exec babel-node src/index.js",
     "clean": "tsc --build --clean",
     "cleandist": "rm -rf dist"
   },
@@ -22,11 +23,19 @@
     "koa-static": "^5.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.23.9",
+    "@babel/core": "^7.23.9",
+    "@babel/node": "^7.23.9",
+    "@babel/plugin-transform-modules-commonjs": "^7.23.3",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-typescript": "^7.23.3",
     "@types/koa": "^2.13.1",
+    "@types/koa-bodyparser": "^4.3.12",
     "@types/koa-logger": "^3.1.5",
     "@types/koa-static": "^4.0.4",
     "@types/node": "^20.11.16",
     "esbuild": "^0.20.0",
+    "koa-bodyparser": "^4.4.1",
     "nodemon": "^3.0.3",
     "typescript": "^5.3.3"
   },

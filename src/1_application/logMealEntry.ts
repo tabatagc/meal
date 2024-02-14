@@ -1,4 +1,5 @@
 //1_application/logMealEntry
+import type { MealEntryData } from '../2_domain/MealEntryData';
 import type { MealEntry } from '../2_domain/mealEntry';
 import type { MealEntryRepository } from '../2_domain/mealEntryRepository';
 
@@ -6,8 +7,9 @@ export class LogMealEntry {
   constructor(private mealEntryRepository: MealEntryRepository) {}
 
   async execute(mealEntryData: MealEntryData): Promise<MealEntry> {
-    if (!this.isValidMealEntryData(mealEntryData)) {
-      throw new Error('Invalid meal entry data');
+    const validationResult = this.isValidMealEntryData(mealEntryData);
+    if (validationResult) {
+      throw new Error(validationResult);
     }
 
     const mealEntry: MealEntry = {
@@ -20,15 +22,29 @@ export class LogMealEntry {
     return this.mealEntryRepository.addMealEntry(mealEntry);
   }
 
-  private isValidMealEntryData(mealEntryData: MealEntryData): boolean {
-    // Adicione sua lógica de validação aqui
-    //return mealEntryData && mealEntryData.description && mealEntryData.timestamp;
-    return true;
+  private isValidMealEntryData(mealEntryData: MealEntryData): string | null {
+
+    if (!mealEntryData.description || mealEntryData.description.length === 0) {
+      return "Description is required.";
+    }
+    if (mealEntryData.description.length > 255) {
+      return "Description is too long.";
+    }
+    if (!mealEntryData.userId) {
+      return "UserId is required.";
+    }    
+    if (!mealEntryData.timestamp || isNaN(new Date(mealEntryData.timestamp).getTime())) {
+      return "Invalid timestamp.";
+    }
+    if (new Date(mealEntryData.timestamp) > new Date()) {
+      return "Timestamp cannot be in the future.";
+    }
+    if (!!mealEntryData.userId){
+      return "UserId invalid.";
+    }
+
+    return null;
   }
 }
 
-export interface MealEntryData {
-  userId: string;
-  description: string;
-  timestamp: string;
-}
+
