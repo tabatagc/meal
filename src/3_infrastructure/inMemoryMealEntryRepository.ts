@@ -13,4 +13,8 @@ export class InMemoryMealEntryRepository implements MealEntryRepository {
   async getAllMealEntries(): Promise<MealEntry[]> {
     return this.entries;
   }
+
+  async getAllPublicMealEntries(): Promise<MealEntry[]> {
+    return [];
+  }
 }

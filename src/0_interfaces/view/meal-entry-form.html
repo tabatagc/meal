@@ -1,0 +1,19 @@
+<!-- /0_interfaces/view/meal-entry-form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Meal Entry</title>
+</head>
+<body>
+    <h1>Add New Meal Entry</h1>
+    <form action="/meal-entries" method="post">
+        <label for="description">Description:</label><br>
+        <input type="text" id="description" name="description"><br>
+        <label for="timestamp">Timestamp:</label><br>
+        <input type="datetime-local" id="timestamp" name="timestamp"><br><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
