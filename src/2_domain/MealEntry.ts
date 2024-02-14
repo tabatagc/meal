@@ -1,3 +1,4 @@
+//2_domain/mealEntry
 export interface MealEntry {
   id: string;
   userId: string;
