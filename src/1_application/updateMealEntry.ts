@@ -35,21 +35,13 @@ export class UpdateMealEntry {
 
   private isValidMealEntryUpdateData(mealEntryToUpdate: MealEntry | undefined, mealEntryData: Partial<MealEntryData>): string | null {
     
-    const now = new Date();
 
-    if (!mealEntryToUpdate || mealEntryToUpdate.id) {
+    if (!mealEntryToUpdate || !mealEntryToUpdate.id) {
       return "Meal entry not found";
     }
 
-    if (mealEntryData.timestamp !== undefined && new Date(mealEntryData.timestamp as string) > now) {
+    if (mealEntryData.timestamp !== undefined && new Date(mealEntryData.timestamp as string) > new Date()) {
       return "Timestamp cannot be in the future.";
-    }
-
-    if (mealEntryToUpdate && mealEntryToUpdate.timestamp) {
-      const oneMinuteAgo = new Date(now.getTime() - 60000);
-      if (mealEntryToUpdate.timestamp < oneMinuteAgo) {
-        return "Meal entry is read only after the first minute";
-      }
     }
 
     if (!mealEntryData.userId) {
@@ -66,10 +58,6 @@ export class UpdateMealEntry {
 
     if (mealEntryData.timestamp !== undefined && isNaN(new Date(mealEntryData.timestamp as string).getTime())) {
       return "Invalid timestamp.";
-    }
-
-    if (mealEntryData.timestamp !== undefined && new Date(mealEntryData.timestamp as string) > now) {
-      return "Timestamp cannot be in the future.";
     }
 
     return null; 

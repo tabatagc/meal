@@ -1,0 +1,55 @@
+<!--update-meal-entry-form.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Meal Entry</title>
+</head>
+<body>
+    <h1>Update Meal Entry</h1>
+    <form id="updateMealEntryForm">
+        <input type="hidden" id="mealId" name="mealId" value="<!--ID-->"><br>
+        <label for="description">Description:</label><br>
+        <input type="text" id="description" name="description" value="<!--DESCRIPTION-->"><br>
+        <label for="userId">UserId:</label><br>
+        <input type="text" id="userId" name="userId" value="<!--USERID-->"><br>
+        <label for="timestamp">Timestamp:</label><br>
+        <input type="datetime-local" id="timestamp" name="timestamp" value="<!--TIMESTAMP-->"><br><br>
+        <button type="submit">Update</button>
+    </form>
+
+    <script>
+      function handleSubmit(event) {
+        event.preventDefault();
+        const form = event.target;
+        const data = {
+          description: form.description.value,
+          userId: form.userId.value,
+          timestamp: form.timestamp.value
+        };
+        fetch(`/view/update-meal-entry-form/${form.mealId.value}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            alert(data.error);
+          } else {
+            alert('Meal entry updated successfully!');
+            window.location.href = '/';
+          }
+        })
+        .catch(error => {
+          alert('An error occurred: ' + error.message);
+        });
+      }
+      
+      document.getElementById('updateMealEntryForm').addEventListener('submit', handleSubmit);
+    </script>
+</body>
+</html>

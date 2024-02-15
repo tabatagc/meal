@@ -34,7 +34,7 @@ export class LogMealEntry {
     if (mealEntryData.description.length > 255) {
       return "Description is too long.";
     }
-    if (!mealEntryData.userId) {
+    if (!mealEntryData.userId || mealEntryData.userId.length === 0) {
       return "UserId is required.";
     }    
     if (!mealEntryData.timestamp || isNaN(new Date(mealEntryData.timestamp).getTime())) {
@@ -42,9 +42,6 @@ export class LogMealEntry {
     }
     if (new Date(mealEntryData.timestamp) > new Date()) {
       return "Timestamp cannot be in the future.";
-    }
-    if (!!mealEntryData.userId){
-      return "UserId invalid.";
     }
 
     return null;

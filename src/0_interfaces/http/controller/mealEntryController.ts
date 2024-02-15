@@ -5,6 +5,7 @@ import type { Context } from 'koa';
 import { LogMealEntry } from '../../../1_application/logMealEntry';
 import { GetAllPublicMealEntries } from '../../../1_application/getAllPublicMealEntries';
 import { GetAllMealEntries } from '../../../1_application/getAllMealEntries';
+import { GetMealEntryById } from '../../../1_application/getMealEntryById';
 import { UpdateMealEntry } from '../../../1_application/updateMealEntry';
 import type { MealEntryData } from '../../../2_domain/MealEntryData';
 import type { MealEntry } from '../../../2_domain/mealEntry';
@@ -15,13 +16,14 @@ export class MealEntryController {
     private logMealEntryApplication: LogMealEntry,
     private getAllPublicMealEntriesApplication: GetAllPublicMealEntries,
     private getAllMealEntriesApplication: GetAllMealEntries,
+    private getMealEntryByIdApplication: GetMealEntryById,
     private updateMealEntryApplication : UpdateMealEntry
     ) {}
 
 
   // 1. New Meal
   public async showMealEntryForm(ctx: Context): Promise<void> {
-    const filePath = path.join(process.cwd(), 'src/0_interfaces/view/meal-entry-form.html');
+    const filePath = path.join(process.cwd(), 'src/0_interfaces/view/add-meal-entry-form.html');
   
     try {
       const fileContents = await fs.readFile(filePath, 'utf8');
@@ -63,8 +65,52 @@ export class MealEntryController {
     const mealEntries = await this.getAllMealEntriesApplication.execute();
     ctx.body = mealEntries;
   }
+  
+  public async getById(ctx: Context): Promise<void> { 
+    try {
+      const id = ctx.params.id;
+      const mealEntry = await this.getMealEntryByIdApplication.execute(id);
+      if (!mealEntry) {
+        ctx.status = 404;
+        ctx.body = { error: 'Meal entry not found' };
+        return;
+      }
+      ctx.body = mealEntry;
+    } catch (error) {
+      console.error(error);
+      ctx.status = 400;
+      ctx.body = { error: (error as Error).message };
+    }
+  }
 
   // 4. Update my meal entries
+  public async serveUpdateForm(ctx: Context): Promise<void> {
+    const id = ctx.params.id;
+    try {
+      const mealEntry = await this.getMealEntryByIdApplication.execute(id);
+      if (!mealEntry) {
+        ctx.status = 404;
+        ctx.body = { error: 'Meal entry not found' };
+        return;
+      }
+      
+      const filePath = path.join(process.cwd(), 'src/0_interfaces/view/update-meal-entry-form.html');
+      const fileContents = await fs.readFile(filePath, 'utf8');
+      
+      let filledForm = fileContents
+        .replace('<!--ID-->', id)
+        .replace('<!--DESCRIPTION-->', mealEntry.description)
+        .replace('<!--USERID-->', mealEntry.userId)
+        .replace('<!--TIMESTAMP-->', mealEntry.timestamp.toISOString().slice(0, 16));
+  
+      ctx.type = 'html';
+      ctx.body = filledForm;
+    } catch (error) {
+      ctx.status = 500;
+      ctx.body = { error: 'Error loading the update meal entry form' };
+    }
+  }
+
   public async updateMeal(ctx: Context): Promise<void> {
     const id = ctx.params.id; 
     const mealEntryData = {
@@ -80,11 +126,12 @@ export class MealEntryController {
     } 
     catch (error) 
     {
-        if (error instanceof Error) {
-          ctx.body = { error: error.message };
-        } else {
-          ctx.body = { error: 'An unknown error occurred' };
-        }
+      ctx.status = 500;
+      if (error instanceof Error) {
+        ctx.body = { error: error.message };
+      } else {
+        ctx.body = { error: 'An unknown error occurred' };
+      }
     }
   }
 
