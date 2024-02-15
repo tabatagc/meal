@@ -7,11 +7,14 @@ export class LogMealEntry {
   constructor(private mealEntryRepository: MealEntryRepository) {}
 
   async execute(mealEntryData: MealEntryData): Promise<MealEntry> {
+    
+    //validation
     const validationResult = this.isValidMealEntryData(mealEntryData);
     if (validationResult) {
       throw new Error(validationResult);
     }
 
+    //mapper
     const mealEntry: MealEntry = {
       id: Math.random().toString(), 
       userId: mealEntryData.userId,
@@ -19,6 +22,7 @@ export class LogMealEntry {
       timestamp: new Date(mealEntryData.timestamp),
     };
 
+    //add
     return this.mealEntryRepository.addMealEntry(mealEntry);
   }
 

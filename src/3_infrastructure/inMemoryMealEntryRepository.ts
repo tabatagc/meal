@@ -22,13 +22,28 @@ export class InMemoryMealEntryRepository implements MealEntryRepository {
     return this.entries.find(entry => entry.id === id);
   }
   
-  async update(id: string, mealEntryData: Partial<MealEntry>): Promise<MealEntry> {
+  async update(id: string, meal: Partial<MealEntry>): Promise<MealEntry> {
     const entryIndex = this.entries.findIndex(entry => entry.id === id);
     if (entryIndex === -1) {
       throw new Error('Meal entry not found');
     }
-    const updatedEntry: MealEntry = { ...this.entries[entryIndex], ...mealEntryData };
+    
+    //All fields are being validated, none will be empty!
+    const updatedEntry: MealEntry = {
+      id: id,
+      userId: meal.userId ?? '',
+      description: meal.description ?? '',
+      timestamp: meal.timestamp ?? new Date(),
+    };
+    //   this.entries[entryIndex] = {
+    //     ...this.entries[entryIndex],
+    //     ...meal,
+    //   };
+  
     this.entries[entryIndex] = updatedEntry;
+  
     return updatedEntry;
   }
+  
+  
 }

@@ -6,16 +6,16 @@ import { LogMealEntry } from '../../../1_application/logMealEntry';
 import { GetAllPublicMealEntries } from '../../../1_application/getAllPublicMealEntries';
 import { GetAllMealEntries } from '../../../1_application/getAllMealEntries';
 import { UpdateMealEntry } from '../../../1_application/updateMealEntry';
-import type { MealEntry } from '../../../2_domain/mealEntry';
 import type { MealEntryData } from '../../../2_domain/MealEntryData';
+import type { MealEntry } from '../../../2_domain/mealEntry';
 
 
 export class MealEntryController {
   constructor(
-    private logMealEntry: LogMealEntry,
-    private getAllPublicMealEntries: GetAllPublicMealEntries,
-    private getAllMealEntries: GetAllMealEntries,
-    private updateMealEntry : UpdateMealEntry
+    private logMealEntryApplication: LogMealEntry,
+    private getAllPublicMealEntriesApplication: GetAllPublicMealEntries,
+    private getAllMealEntriesApplication: GetAllMealEntries,
+    private updateMealEntryApplication : UpdateMealEntry
     ) {}
 
 
@@ -42,7 +42,7 @@ export class MealEntryController {
         description: ctx.request.body.description,
         timestamp: ctx.request.body.timestamp,
       };
-      const mealEntry = await this.logMealEntry.execute(mealEntryData);
+      const mealEntry = await this.logMealEntryApplication.execute(mealEntryData);
       ctx.status = 201; 
       ctx.body = { message: 'Meal entry added successfully', mealEntry };
     } catch (error) {
@@ -54,50 +54,37 @@ export class MealEntryController {
 
   // 2. View Public Meal Entries
   public async getAllPublic(ctx: Context): Promise<void> {
-    const publicMealEntries = await this.getAllPublicMealEntries.execute();
+    const publicMealEntries = await this.getAllPublicMealEntriesApplication.execute();
     ctx.body = publicMealEntries;
   }
 
   // 3. View all my meal entries
   public async getAll(ctx: Context): Promise<void> {
-    const mealEntries = await this.getAllMealEntries.execute();
+    const mealEntries = await this.getAllMealEntriesApplication.execute();
     ctx.body = mealEntries;
   }
 
   // 4. Update my meal entries
-  public async updateMealEntry(ctx: Context): Promise<void> {
+  public async updateMeal(ctx: Context): Promise<void> {
     const id = ctx.params.id; 
     const mealEntryData = {
       description: ctx.request.body.description,
       userId: ctx.request.body.userId,
       timestamp: ctx.request.body.timestamp
     };
-    // const mealEntryToUpdate = this.mealEntryRepository.find(id);
-  
-    // if (!mealEntryToUpdate) {
-    //   ctx.status = 404;
-    //   ctx.body = { error: 'Meal entry not found' };
-    //   return;
-    // }
-  
-    // const now = new Date();
-    // const oneMinuteAgo = new Date(now.getTime() - 60000);
-  
-    // if (mealEntryToUpdate.timestamp < oneMinuteAgo) {
-    //   ctx.status = 403;
-    //   ctx.body = { error: 'Meal entry is read only after the first minute' };
-    //   return;
-    // }
-  
-
+    
     try {
-      const updateMealEntryService = new UpdateMealEntry(this.mealEntryRepository);
-      const updatedMealEntry = await updateMealEntryService.execute(id, mealEntryData);
+      const updatedMealEntry = await this.updateMealEntryApplication.execute(id, mealEntryData);
       ctx.status = 200;
       ctx.body = { message: 'Meal entry updated successfully', mealEntry: updatedMealEntry };
-    } catch (error) {
-      ctx.status = 400;
-      ctx.body = { error: error.message };
+    } 
+    catch (error) 
+    {
+        if (error instanceof Error) {
+          ctx.body = { error: error.message };
+        } else {
+          ctx.body = { error: 'An unknown error occurred' };
+        }
     }
   }
 

@@ -23,7 +23,7 @@ export function startServer(): void {
   const logMealEntry = new LogMealEntry(mealEntryRepository);
   const getAllPublicMealEntries = new GetAllPublicMealEntries(mealEntryRepository);
   const getAllMealEntries = new GetAllMealEntries(mealEntryRepository);
-  const updateMealEntries = new GetAllPublicMealEntries(mealEntryRepository);
+  const updateMealEntries = new UpdateMealEntry(mealEntryRepository);
   const mealEntryController = new MealEntryController(logMealEntry, getAllPublicMealEntries, getAllMealEntries, updateMealEntries);
   
   const publicDir = path.join(__dirname, '../../view'); 
@@ -59,10 +59,8 @@ export function startServer(): void {
   router.get('/meal-entries', mealEntryController.getAll.bind(mealEntryController));
 
   // 4. Update my meal entries
-  router.put('/meal-entries/:id', mealEntryController.updateMealEntry.bind(mealEntryController));
+  router.put('/meal-entries/:id', mealEntryController.updateMeal.bind(mealEntryController));
 
-
-  
   app.listen(3000, () => {
     console.log('Server running on http://localhost:3000');
   });

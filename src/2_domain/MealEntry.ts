@@ -1,6 +1,6 @@
 //2_domain/mealEntry
 export interface MealEntry {
-  id: string;
+  id?: string;
   userId: string;
   description: string;
   timestamp: Date;
