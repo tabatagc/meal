@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/main.css">
+    <title>Meal Entries</title>
+</head>
+<body>
+    <h1>Meal Entries</h1>
+    <div id="controls">
+        <button id="addMealEntry">Add Meal Entry</button>
+        <label for="showPublicOnly">Show Public Only:</label>
+        <input type="checkbox" id="showPublicOnly">
+        <button id="aboutTabata">More About Tabata...</button>
+    </div>
+    <table id="mealEntriesTable">
+        <thead>
+            <tr>
+                <th>UserID</th>
+                <th>Description</th>
+                <th>Timestamp</th>
+                <th>Public</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Meal entries will be loaded here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script src="/scripts/mealEntries.js"></script>
+</body>
+</html>

@@ -15,7 +15,9 @@
         <label for="userId">UserId:</label><br>
         <input type="text" id="userId" name="userId" value="<!--USERID-->"><br>
         <label for="timestamp">Timestamp:</label><br>
-        <input type="datetime-local" id="timestamp" name="timestamp" value="<!--TIMESTAMP-->"><br><br>
+        <input type="datetime-local" id="timestamp" name="timestamp" value="<!--TIMESTAMP-->"><br>
+        <label for="isPublic">Public:</label><br>
+        <input type="checkbox" id="isPublic" name="isPublic" <!--ISPUBLICCHECKED-->><br><br>        
         <button type="submit">Update</button>
     </form>
 
@@ -26,7 +28,8 @@
         const data = {
           description: form.description.value,
           userId: form.userId.value,
-          timestamp: form.timestamp.value
+          timestamp: form.timestamp.value,
+          isPublic: form.isPublic.checked
         };
         fetch(`/view/update-meal-entry-form/${form.mealId.value}`, {
           method: 'PUT',

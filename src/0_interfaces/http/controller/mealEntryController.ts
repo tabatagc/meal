@@ -37,12 +37,14 @@ export class MealEntryController {
   }
   
   public async addMealEntry(ctx: Context): Promise<void> {
-    console.log("detail:", ctx.request.body.userId, ctx.request.body.description, ctx.request.body.timestamp);
     try {
+      const isPublic = ctx.request.body.isPublic === 'true';
+
       const mealEntryData: MealEntryData = {
         userId: ctx.request.body.userId,
         description: ctx.request.body.description,
         timestamp: ctx.request.body.timestamp,
+        isPublic: ctx.request.body.isPublic
       };
       const mealEntry = await this.logMealEntryApplication.execute(mealEntryData);
       ctx.status = 201; 
@@ -101,7 +103,8 @@ export class MealEntryController {
         .replace('<!--ID-->', id)
         .replace('<!--DESCRIPTION-->', mealEntry.description)
         .replace('<!--USERID-->', mealEntry.userId)
-        .replace('<!--TIMESTAMP-->', mealEntry.timestamp.toISOString().slice(0, 16));
+        .replace('<!--TIMESTAMP-->', mealEntry.timestamp.toISOString().slice(0, 16))
+        .replace('<!--ISPUBLICCHECKED-->', mealEntry.isPublic ? 'checked' : '');
   
       ctx.type = 'html';
       ctx.body = filledForm;
@@ -116,7 +119,8 @@ export class MealEntryController {
     const mealEntryData = {
       description: ctx.request.body.description,
       userId: ctx.request.body.userId,
-      timestamp: ctx.request.body.timestamp
+      timestamp: ctx.request.body.timestamp,
+      isPublic: ctx.request.body.isPublic
     };
     
     try {

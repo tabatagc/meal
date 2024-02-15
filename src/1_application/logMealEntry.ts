@@ -20,6 +20,7 @@ export class LogMealEntry {
       userId: mealEntryData.userId,
       description: mealEntryData.description,
       timestamp: new Date(mealEntryData.timestamp),
+      isPublic: mealEntryData.isPublic,
     };
 
     //add

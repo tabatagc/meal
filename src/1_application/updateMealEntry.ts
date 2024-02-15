@@ -26,6 +26,7 @@ export class UpdateMealEntry {
       userId: mealEntryData.userId ?? '',
       description: mealEntryData.description ?? '',
       timestamp: oneMinuteAgo,
+      isPublic: mealEntryData.isPublic
     };
 
     //update

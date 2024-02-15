@@ -14,7 +14,9 @@
         <label for="userId">UserId:</label><br>
         <input type="text" id="userId" name="userId"><br>        
         <label for="timestamp">Timestamp:</label><br>
-        <input type="datetime-local" id="timestamp" name="timestamp"><br><br>
+        <input type="datetime-local" id="timestamp" name="timestamp"><br>
+        <label for="isPublic">Public:</label><br>
+        <input type="checkbox" id="isPublic" name="isPublic"><br><br>        
         <button type="submit">Submit</button>
     </form>
 
@@ -25,7 +27,8 @@
         const data = {
           description: form.description.value,
           userId: form.userId.value,
-          timestamp: form.timestamp.value
+          timestamp: form.timestamp.value,
+          isPublic: form.isPublic.checked
         };
         fetch(form.action, {
           method: 'POST',

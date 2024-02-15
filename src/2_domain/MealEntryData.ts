@@ -1,5 +1,6 @@
 export interface MealEntryData {
     userId: string;
     description: string;
-    timestamp: string; 
+    timestamp: string;
+    isPublic?: boolean;
   }

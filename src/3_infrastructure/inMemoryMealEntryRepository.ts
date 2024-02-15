@@ -1,4 +1,5 @@
 //3_infrastructure/inMemoryMealEntryRepository
+import { METHODS } from 'http';
 import type { MealEntry } from '../2_domain/mealEntry';
 import type { MealEntryRepository } from '../2_domain/mealEntryRepository';
 
@@ -11,7 +12,7 @@ export class InMemoryMealEntryRepository implements MealEntryRepository {
   }
 
   async getAllPublicMealEntries(): Promise<MealEntry[]> {
-    return [];
+    return this.entries.filter(entry => entry.isPublic === true);
   }
 
   async getAllMealEntries(): Promise<MealEntry[]> {
@@ -34,6 +35,7 @@ export class InMemoryMealEntryRepository implements MealEntryRepository {
       userId: meal.userId ?? '',
       description: meal.description ?? '',
       timestamp: meal.timestamp ?? new Date(),
+      isPublic : meal.isPublic
     };
     //   this.entries[entryIndex] = {
     //     ...this.entries[entryIndex],

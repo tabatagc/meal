@@ -4,5 +4,5 @@ export interface MealEntry {
   userId: string;
   description: string;
   timestamp: Date;
-//  isPublic?: boolean;
+  isPublic?: boolean;
 }

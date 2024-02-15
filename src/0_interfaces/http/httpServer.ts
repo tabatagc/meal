@@ -51,7 +51,6 @@ export function startServer(): void {
 
   router.get('/', helloWorld);
   
-
   // 1. New Meal
   router.get('/view/add-meal-entry-form', mealEntryController.showMealEntryForm.bind(mealEntryController));
   router.post('/meal-entries', mealEntryController.addMealEntry.bind(mealEntryController));  
