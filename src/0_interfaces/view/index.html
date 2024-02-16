@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--0_interfaces/view/index.html-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="content/styles/list-meal-entries.css">
     <title>Meal Entries</title>
 </head>
 <body>
-    <h1>Meal Entries</h1>
+    <h1>Meal Entries</h1><br><br>
     <div id="controls">
-        <button id="addMealEntry">Add Meal Entry</button>
-        <label for="showPublicOnly">Show Public Only:</label>
         <input type="checkbox" id="showPublicOnly">
+        <label for="showPublicOnly">Show Public Only:</label>
+        <button id="addMealEntry">Add Meal</button>
         <button id="aboutTabata">More About Tabata...</button>
     </div>
     <table id="mealEntriesTable">
@@ -29,6 +30,6 @@
         </tbody>
     </table>
 
-    <script src="/scripts/mealEntries.js"></script>
+    <script src="content/scripts/list-meal-entries.js"></script>
 </body>
 </html>

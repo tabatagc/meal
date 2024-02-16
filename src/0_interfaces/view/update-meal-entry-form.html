@@ -1,13 +1,16 @@
-<!--update-meal-entry-form.html-->
 <!DOCTYPE html>
 <html lang="en">
+<!--update-meal-entry-form.html-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/content/styles/form-shared-styles.css">
+
     <title>Update Meal Entry</title>
 </head>
 <body>
-    <h1>Update Meal Entry</h1>
+  <div class="container">
+    <h1>Update Meal Entry</h1><br><br>
     <form id="updateMealEntryForm">
         <input type="hidden" id="mealId" name="mealId" value="<!--ID-->"><br>
         <label for="description">Description:</label><br>
@@ -31,7 +34,7 @@
           timestamp: form.timestamp.value,
           isPublic: form.isPublic.checked
         };
-        fetch(`/view/update-meal-entry-form/${form.mealId.value}`, {
+        fetch(`/update-meal-entry-form/${form.mealId.value}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -54,5 +57,6 @@
       
       document.getElementById('updateMealEntryForm').addEventListener('submit', handleSubmit);
     </script>
+    </div>
 </body>
 </html>

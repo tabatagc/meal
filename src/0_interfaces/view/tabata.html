@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="content/styles/tabata.css">
+    <title>Tábata Carvalho - Professional Journey</title>
+</head>
+<body>
+    <div class="main-container">
+        <h1>About Me</h1>
+
+        <p>Coding is more than a job; it's my passion. With 21 years in the tech industry, my career has spanned roles such as Project Manager, Software Architect, and Tech Lead. However, coding is where I find my joy. That's why my resume highlights 19 years dedicated to hands-on programming across various languages.</p>
+
+        <p>My expertise lies in C#, yet the last decade has seen me embrace NodeJS projects in every company I've worked for, and Python for the past four years. While I've had extensive full-stack experience in Brazil, including work with React and AngularJS (up to version 6), I don't claim to be a React specialist but have consistently delivered quality front-end solutions.</p>
+
+        <p>I am well-versed in architecture, products from AWS, Azure, and a proponent of best practices like SOLID and clean code. Whether it's adhering to DDD or CQRS or navigating microservices and monolithic architectures, I have the experience to contribute effectively.</p>
+
+        <p>To me, seniority means staying abreast of the latest trends, being efficient in applying context-appropriate solutions, inspiring team members, and possessing the confidence forged from overcoming diverse challenges.</p>
+
+        <p>While not a React specialist, my breadth of experience in maintenance and other aspects of full-stack development has always positioned me as a valuable asset.</p>
+
+        <p>My career has taken me from São Paulo to Portugal, where I've contributed to companies like Farfetch and Basecone. I'm open to exploring roles beyond local opportunities, seeking technical challenges that match my lifestyle values and career goals.</p>
+
+        <p>Currently, I am seeking a role that challenges me technically while providing a stable environment conducive to career growth, particularly in software architecture. I am not considering consultancy roles at present.</p>
+        
+        <p>My approach is one of curiosity and continual improvement. I firmly believe in being fully present in all my endeavors and hope to find a company that shares these values.</p>
+
+
+        <br><br>
+        <p><h1>Technical Decisions for Project Architecture</h1></p>
+        <p>When I started doing the technical challenge more precisely yesterday, I had several frameworks and languages to choose from. However, I opted for Koa for the backend services, and here's why:</p>
+        
+        <p><b>Koa.js:</b> Built by the same team behind Express, Koa aims to be a smaller, more expressive, and more robust foundation for web applications and APIs. By leveraging async functions, Koa allows you to ditch callbacks and significantly increase error-handling capabilities. These are the primary reasons that resonate with my choice of Koa for this project. Its lightweight nature doesn't dictate the structure of your application, giving me the freedom to build as per the project's needs.</p>
+        
+        <p><b>ES6+:</b> The modern features of ES6+ not only make the code more readable but also more expressive. Features like arrow functions, template literals, and destructuring assignment come in handy for cleaner, more concise code. The syntactical sugar provided by ES6+ allows me to write JavaScript that's more aligned with modern development standards and practices.</p>
+        
+        <p><b>Babel:</b> JavaScript is ever-evolving, and Babel ensures that I can use the latest features of the language without worrying about browser compatibility. It's like having the best of both worlds; I get to write modern, clean JavaScript, and Babel compiles it down to a version that's compatible across different platforms. It's an essential tool in a developer's arsenal to bridge the gap between current capabilities and future-proofing the codebase.</p>
+        
+        <p><b>Domain-Driven Design (DDD):</b> Structuring the application around the business domain and its logic was a strategic decision. DDD facilitates the collaboration between technical and non-technical team members, ensuring the software accurately reflects the business's needs. It also promotes a modular structure, where the system is divided into distinct models, each with its own focused, bounded context. This aligns with my belief in writing code that's not only functional but tells a story of the business it's serving.</p>
+        
+        <p><b>Layered Architecture:</b></p>
+        <ul>
+          <li><b>Controller Layer:</b> Acts as the orchestrator, handling incoming requests and delegating tasks to appropriate services.</li>
+          <li><b>Application Layer:</b> This is where the business logic lives. It's the heart of the application, dictating workflows and ensuring use cases are correctly executed.</li>
+          <li><b>Repository Layer:</b> Abstracting the data layer away from the business logic, the repository layer interacts with the database, providing a clean separation of concerns.</li>
+        </ul>
+        <p>In conclusion, these technological choices were made to ensure the codebase remains scalable, maintainable, and modern. Leveraging Koa and ES6+ enhances the development experience, while Babel ensures compatibility. The architectural decisions, rooted in DDD, promote a clean separation of concerns and a model that mirrors the business domain, leading to software that is both robust and aligned with business objectives.</p>
+        
+        <footer>
+            <p>Connect with me:</p>
+            <ul>
+                <li>LinkedIn: <a href="https://www.linkedin.com/in/t%C3%A1bata-carvalho-6017b123/" target="_blank">Tábata Carvalho</a></li>
+                <li>GitHub: <a href="https://github.com/tabatagc" target="_blank">tabatagc</a></li>
+                <li>HackerRank: <a href="https://www.hackerrank.com/tabatagc" target="_blank">tabatagc</a></li>
+                <li>iMasters: <a href="https://imasters.com.br/devsecops/criacao-de-collection-no-azure-cosmos-db" target="_blank">My Articles</a></li>
+            </ul>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,12 +1,15 @@
-<!--add-meal-entry-form.html-->
 <!DOCTYPE html>
 <html lang="en">
+<!--0_interfaces/view/add-meal-entry-form.html-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Meal Entry</title>
+    <link rel="stylesheet" href="content/styles/form-shared-styles.css">
+
+    <title>Add New Meal Entry</title><br><br>
 </head>
 <body>
+  <div class="container">
     <h1>Add New Meal Entry</h1>
     <form id="mealEntryForm" action="/meal-entries" method="post">
         <label for="description">Description:</label><br>
@@ -55,5 +58,6 @@
         document.getElementById('mealEntryForm').addEventListener('submit', handleSubmit);
       });
     </script>
+    </div>
 </body>
 </html>

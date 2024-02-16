@@ -1,5 +1,5 @@
 //0_interfaces/http/controller/mealEntryController
-import fs from 'fs/promises';
+import { promises as fs } from 'fs';
 import path from 'path';
 import type { Context } from 'koa';
 import { LogMealEntry } from '../../../1_application/logMealEntry';
@@ -20,7 +20,35 @@ export class MealEntryController {
     private updateMealEntryApplication : UpdateMealEntry
     ) {}
 
+  // 0. Home
+  public async serveMealEntriesPage(ctx: Context): Promise<void> {
+    const filePath = path.join(process.cwd(), 'src/0_interfaces/view/index.html');
+  
+    try {
+      const fileContents = await fs.readFile(filePath, 'utf8');
+      ctx.type = 'html';
+      ctx.body = fileContents;
+    } catch (error) {
+      console.error('Error reading the meal entries list file:', error);
+      ctx.status = 500;
+      ctx.body = 'Internal Server Error';
+    }
+  }
 
+  public async tabataPage(ctx: Context): Promise<void> {
+    const filePath = path.join(process.cwd(), 'src/0_interfaces/view/tabata.html');
+  
+    try {
+      const fileContents = await fs.readFile(filePath, 'utf8');
+      ctx.type = 'html';
+      ctx.body = fileContents;
+    } catch (error) {
+      console.error('Error reading the meal entries list file:', error);
+      ctx.status = 500;
+      ctx.body = 'Internal Server Error';
+    }
+  }
+  
   // 1. New Meal
   public async showMealEntryForm(ctx: Context): Promise<void> {
     const filePath = path.join(process.cwd(), 'src/0_interfaces/view/add-meal-entry-form.html');

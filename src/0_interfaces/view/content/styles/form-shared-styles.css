@@ -1,0 +1,100 @@
+/* Adicione este CSS no topo do seu arquivo de estilo para aplicar estilos básicos */
+body, html {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    display: flex;
+}
+
+/* Este será o estilo padrão para telas maiores */
+.container {
+    box-sizing: border-box;
+    width: 40%; /* Use uma porcentagem menor para que não ocupe tanto espaço em telas maiores */
+    min-width: 300px; /* Defina uma largura mínima para o formulário */
+    max-width: 600px; /* Defina uma largura máxima para o formulário */
+    margin: 2% auto; /* Centraliza o container e mantém uma margem superior e inferior */
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos para os inputs e botões */
+input[type=text],
+input[type=datetime-local],
+input[type=checkbox],
+button {
+    width: 100%; /* Faz os inputs e botões ocuparem toda a largura do container */
+    padding: 10px;
+    margin-bottom: 15px; /* Aumenta um pouco o espaçamento entre os elementos */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Ajusta o espaçamento para o título */
+h1 {
+    color: #445d77;
+    margin-bottom: 30px;
+}
+
+label {
+    color: #445d77;
+    font-weight: bold;
+    text-align: left; /* Alinha o texto à esquerda */
+}
+
+/* Ajusta o estilo dos botões */
+button {
+    background-color: #445d77;
+    color: #fff;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #5a7c99;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    /* Para telas menores, o formulário ocupa uma porcentagem maior */
+    .container {
+        width: 60%;
+        margin-top: 10%; /* Aumenta um pouco a margem superior */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Para telas muito pequenas, como celulares, o formulário ocupa quase toda a largura */
+    .container {
+        width: 80%;
+        margin-top: 20%; /* Aumenta a margem superior para não colar no topo */
+    }
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #445d77;
+    color: white;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #ddd;
+}
